@@ -1,37 +1,16 @@
 import React, {useState,useRef} from 'react'
-import styled from 'styled-components';
 
-import {Button} from "../../assets/js/styled-utils";
 import {useOutside} from '../../hooks'
-
-const PopupWrapper = styled.section`
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,0,.3);
-`
-
-const Popup = styled.div`
-    background: white;
-    min-width: 400px;
-    padding: 20px;
-`
-const PopupHeader = styled.header`
-    display: flex;
-    align-items:center;
-    justify-content: space-between;
-`
-
-const PopupForm = styled.form`
-    display:flex;
-
-    flex-direction: column;
-`
+import {
+    PopupWrapper,
+    Popup,
+    PopupHeader,
+    PopupForm,
+    PopupFormTitle
+}
+from './login-popup-styled'
+import {Button} from "../../assets/js/styled-utils";
+import Input from '../../components/form/input'
 
 const LoginPopup =({toggle,form})=>{
     const node = useRef();
@@ -43,15 +22,17 @@ const LoginPopup =({toggle,form})=>{
             <PopupWrapper >
                 <Popup ref={node}>
                     <PopupHeader>
-                        <span>Попап ниче так {email} {password}</span>
+                        {/*<span>Попап ниче так {email} {password}</span>*/}
                         <span onClick={toggle}><i className="fas fa-times"></i></span>
                     </PopupHeader>
                     {
                         form == 'login'?
                             <PopupForm action=''>
-                                <h2>Зайди и будет круто</h2>
-                                <input type="text" onChange={(e)=>setEmail(e.target.value)}/>
-                                <input type="text" onChange={(e)=>setPassword( e.target.value)}/>
+                                <PopupFormTitle>Зайди и будет круто</PopupFormTitle>
+                                <Input label={'Email'} handle={(e)=>setEmail(e.target.value)}/>
+                                <Input type={'password'} label={'Password'} handle={(e)=>setPassword(e.target.value)}/>
+                                {/*<input type="text" onChange={(e)=>setEmail(e.target.value)}/>*/}
+                                {/*<input type="text" onChange={(e)=>setPassword( e.target.value)}/>*/}
                                 <Button onClick={toggle}>Sing in</Button>
                             </PopupForm>:
                             <PopupForm action=''>
